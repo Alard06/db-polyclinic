@@ -89,9 +89,21 @@ class DBCommand:
             print('Запись была успешно добавлена!')
         except Exception as e:
             print(f'Запись не добавлена, т.к. ошибка: {e}')
-# db = DBCommand()
-# db.show_table(table_name="DOCTORS")
-# db.add_rows(table_name="SPECIALITY_CODE")
-#
-# db.add_rows(table_name="DOCTORS")
-# db.show_table(table_name="DOCTORS")
+
+    def check_doctor(self):
+        try:
+            doctor_id = int(input('Введите id доктора'))
+            self.cursor.execute("""
+                SELECT *
+                FROM RECEPTIONS
+                WHERE ID_DOCTOR = ?
+            """, (doctor_id))
+
+            # Fetch all the rows returned by the query
+            appointments = self.cursor.fetchall()
+
+            # Print the appointments
+            for appointment in appointments:
+                print(appointment)
+        except Exception as e:
+            print('Произошла ошибка: ', e)

@@ -40,6 +40,7 @@ def doctor():
         match command:
             case 1:
                 os.system('cls' if os.name == 'nt' else 'clear')
+
                 print('Посмотреть записи')
             case 11:
                 os.system('cls' if os.name == 'nt' else 'clear')
