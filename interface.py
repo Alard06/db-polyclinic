@@ -40,9 +40,10 @@ def doctor():
         match command:
             case 1:
                 os.system('cls' if os.name == 'nt' else 'clear')
+                check_doctor()
+                doctor()
 
-                print('Посмотреть записи')
-            case 11:
+            case 2:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 exit()
             case _:

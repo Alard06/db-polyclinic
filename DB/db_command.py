@@ -67,21 +67,21 @@ class DBCommand:
         self.conn.commit()
 
     def add_reception(self):
-        self.print_last_row("RECEPTIONS")
-        id_reception = int(input("Введите ID приема: "))
-        self.show_table("CLIENT")
-        id_client = int(input("Введите ID клиента: "))
-        self.show_table("DOCTORS")
-        id_doctor = int(input("Введите ID врача: "))
-        self.show_table("PROCEDURE_CODE")
-        procedure_code = int(input("Введите код процедуры: "))
-        self.show_table("DIAGNOSIS")
-        diagnosis = int(input("Введите ID диагноза: "))
-        reception_date = input("Введите время приема (в формате 'YYYY-MM-DD HH:MM:SS'): ")
-
         try:
+            self.print_last_row("RECEPTIONS")
+            id_reception = int(input("Введите ID приема: "))
+            self.show_table("CLIENT")
+            id_client = int(input("Введите ID клиента: "))
+            self.show_table("DOCTORS")
+            id_doctor = int(input("Введите ID врача: "))
+            self.show_table("PROCEDURE_CODE")
+            procedure_code = int(input("Введите код процедуры: "))
+            self.show_table("DIAGNOSIS")
+
+
+            reception_date = input("Введите время приема (в формате 'YYYY-MM-DD HH:MM:SS'): ")
             query = f"INSERT INTO RECEPTIONS (ID, ID_CLIENT, ID_DOCTOR, PROCEDURE_CODE, DIAGNOSIS, RECEPTION_DATE) " \
-                    f"VALUES ({id_reception}, {id_client}, {id_doctor}, {procedure_code}, {diagnosis}, '{reception_date}')"
+                    f"VALUES ({id_reception}, {id_client}, {id_doctor}, {procedure_code}, null, '{reception_date}')"
 
             self.cursor.execute(query)
 
@@ -92,6 +92,7 @@ class DBCommand:
 
     def check_doctor(self):
         try:
+            self.show_table("DOCTORS")
             doctor_id = int(input('Введите id доктора'))
             self.cursor.execute("""
                 SELECT *
@@ -99,10 +100,8 @@ class DBCommand:
                 WHERE ID_DOCTOR = ?
             """, (doctor_id))
 
-            # Fetch all the rows returned by the query
             appointments = self.cursor.fetchall()
 
-            # Print the appointments
             for appointment in appointments:
                 print(appointment)
         except Exception as e:

@@ -26,3 +26,8 @@ def show_command(table):
 def add_reception():
     db = db_command()
     db.add_reception()
+
+
+def check_doctor():
+    db = db_command()
+    db.check_doctor()
